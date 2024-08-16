@@ -1,0 +1,218 @@
+@import url("./fonts.css");
+@import url("./color.css");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+body,
+* {
+  font-family: Vazirmatn;
+}
+
+html {
+  font-size: 62.5%;
+}
+/* main header */
+header {
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 1200px;
+}
+.header-search {
+  background: white;
+  margin-right: 190px;
+  width: 60px;
+  height: 35px;
+  display: flex;
+}
+.header-search .input-search {
+  flex: 1;
+  border: none;
+  outline: none;
+}
+.header-search .btn-search {
+  background: var(--color-light-100);
+  padding: 5px 20px;
+  border: none;
+  outline: none;
+  color: #212f3c;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.header-search .fa-search {
+  align-self: center;
+  padding: 5px 10px;
+  font-size: 1.3rem;
+  color: var(--color-light-100);
+}
+.header-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5rem;
+}
+.header-title h1 {
+  flex: 1;
+  text-align: left;
+  font-size: 3rem;
+}
+.icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+svg > use {
+  pointer-events: none;
+}
+.completed {
+  opacity: 0.7;
+}
+.completed-txt {
+  text-decoration: line-through;
+}
+/* main container */
+.main-cart {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.cart-content {
+  padding: 2rem 1.5rem;
+  margin: 1rem;
+  border-radius: var(--border-radius-lg);
+  background-color: var(--color-light-800);
+}
+.cart-title {
+  font-size: 2rem;
+  font-weight: 900;
+}
+.cart-description {
+  font-weight: 700;
+}
+.cart-item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  font-weight: 400;
+}
+.cart-item-date {
+  border: 1px solid var(--color-white);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+.select-type {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.select-control input[type="radio"] {
+  display: none;
+}
+.select-control {
+  padding: 0 0.5rem;
+  flex-grow: 1;
+}
+.select-control label {
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  border-radius: 32px;
+  border: 2px solid #ccc;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  color: var(--color-white);
+  position: relative;
+  text-align: center;
+  transition: all 0.2s ease-out;
+}
+.select-control label::before {
+  position: absolute;
+  content: "";
+  width: 15px;
+  height: 15px;
+  box-shadow: 0 0 0 2px #ccc;
+  border-radius: 100%;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 3px solid #fff;
+  transition: all 0.2s ease-out;
+}
+.select-control input[type="radio"]:checked + label {
+  border: 2px solid var(--color-light-100);
+  color: var(--color-light-100);
+}
+.select-control input[type="radio"]:checked + label::before {
+  box-shadow: 0 0 0 2px var(--color-light-100);
+  background-color: var(--color-light-100);
+}
+
+.select {
+  position: relative;
+  width: 200px;
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  margin-right: 3rem;
+}
+.filter-todos {
+  width: 60%;
+  height: 25px;
+  padding: 0rem 0.5rem;
+  border: 0;
+  border-radius: var(--border-radius-tiny);
+  background-color: var(--color-white);
+  font-size: 1.2rem;
+  appearance: none;
+  cursor: pointer;
+  border: 1px solid var(--color-white);
+  outline: none;
+  font-weight: 700;
+}
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  background-color: var(--color-black);
+  width: 15px;
+  height: 13px;
+  padding-top: 0.3rem;
+  border-radius: var(--border-radius-tiny);
+  color: var(--color-light-100);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .main-cart {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (min-width: 1024px) {
+  .main-cart {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}

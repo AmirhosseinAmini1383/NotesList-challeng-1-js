@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="styles/index.css" />
+    <title>Javascript</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <header>
+        <div class="header-title">
+          <h1>Note App</h1>
+          <div class="select">
+            <select class="filter-todos" name="todos">
+              <option value="ALL">All</option>
+              <option value="COMPLETED">Completed</option>
+              <option value="UNCOMPLETED">Uncompleted</option>
+            </select>
+          </div>
+          <div>
+            <div class="header-search">
+              <i class="fas fa-search"></i>
+              <input class="input-search" type="text" placeholder="search..." />
+              <button class="btn-search" type="submit">Search</button>
+            </div>
+          </div>
+        </div>
+        <section class="container block">
+          <div class="select-type">
+            <div class="select-control">
+              <input type="radio" name="sort" id="type-A" class="Ascending" />
+              <label for="type-A">Asce</label>
+            </div>
+            <div class="select-control">
+              <input type="radio" name="sort" id="type-B" class="Descending" />
+              <label for="type-B">Desc</label>
+            </div>
+          </div>
+        </section>
+      </header>
+      <div class="main-cart">
+        <!-- <div class="cart-content">
+          <p class="cart-title">React.js</p>
+          <p class="cart-description">read React hooks</p>
+          <div class="cart-item-footer">
+            <p class="cart-item-date">2024/05/22</p>
+            <p>trash</p>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
