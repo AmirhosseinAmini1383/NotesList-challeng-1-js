@@ -92,7 +92,7 @@ svg > use {
   padding: 2rem 1.5rem;
   margin: 1rem;
   border-radius: var(--border-radius-lg);
-  background-color: var(--color-light-800);
+  /* background-color: var(--color-light-800); */
 }
 .cart-title {
   font-size: 2rem;
@@ -132,7 +132,7 @@ svg > use {
   width: 100%;
   display: block;
   border-radius: 32px;
-  border: 2px solid #ccc;
+  border: 2px solid var(--color-white);
   padding: 1rem 2rem;
   font-weight: 700;
   color: var(--color-white);
@@ -150,7 +150,7 @@ svg > use {
   right: 2.5rem;
   top: 50%;
   transform: translateY(-50%);
-  border: 3px solid #fff;
+  border: 3px solid var(--color-white);
   transition: all 0.2s ease-out;
 }
 .select-control input[type="radio"]:checked + label {

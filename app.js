@@ -2,13 +2,13 @@ import { notesList } from "./notesList.js";
 const mainCart = document.querySelector(".main-cart");
 const inputSearch = document.querySelector(".input-search");
 const filterTodos = document.querySelector(".filter-todos");
+const selectSort = document.querySelectorAll(".select-control");
 let _noteListResult = [];
 class NoteList {
   getNoteList() {
     return notesList;
   }
 }
-
 class Storage {
   static saveNoteList(note) {
     return localStorage.setItem("NoteList", JSON.stringify(note));
@@ -25,18 +25,36 @@ function filterNoteList(data, search) {
 }
 
 function displayNotelist(notes) {
+  const colors = [
+    "#d00000",
+    "#3f88c5",
+    "#ffba08",
+    "#01804d",
+    "#3d348b",
+    "#ff6d00",
+    "#dd2d4a",
+    "#0d41e1",
+    "#004068",
+  ];
   let result = "";
-  notes.forEach((item) => {
+  notes.forEach((item, index) => {
+    const color = colors[index % colors.length];
     result += `
-    <div class="cart-content ${item.completed ? "completed" : ""}">
-    <p class="cart-title">${item.title}</p>
-    <p class="cart-description">${item.description}</p>
+    <div class="cart-content ${
+      item.completed ? "completed" : ""
+    }" style="background-color:${color}">
+    <p class="cart-title ${item.completed ? "completed-txt" : ""}">${
+      item.title
+    }</p>
+    <p class="cart-description ${item.completed ? "completed-txt" : ""}">${
+      item.description
+    }</p>
     <div class="cart-item-footer">
     <p class="cart-item-date">${new Date(item.createdAt).toLocaleDateString(
       "UTC",
       {
-        year: "2-digit",
-        month: "2-digit",
+        year: "numeric",
+        month: "short",
         day: "2-digit",
       }
     )}</p>
@@ -53,7 +71,6 @@ function displayNotelist(notes) {
     `;
   });
   mainCart.innerHTML = result;
-  // Storage.saveNoteList(notes);
   actionBtns();
 }
 function actionBtns() {
@@ -75,9 +92,60 @@ inputSearch.addEventListener("input", (e) => {
   const inputValue = e.target.value.toLowerCase().trim();
   const notes = Storage.getAllNoteList();
   _noteListResult = filterNoteList(notes, inputValue);
-  console.log(_noteListResult);
-  // Storage.saveNoteList(_noteListResult);
   displayNotelist(_noteListResult);
+});
+
+function statusNoteList(data, status) {
+  switch (status) {
+    case "ALL": {
+      return data;
+    }
+    case "COMPLETED": {
+      const filterStatus = data.filter((item) => item.completed);
+      return filterStatus;
+    }
+    case "UNCOMPLETED": {
+      const filterStatus = data.filter((item) => !item.completed);
+      return filterStatus;
+    }
+    default:
+      throw new Error("NO MATCHING STATUS");
+  }
+}
+filterTodos.addEventListener("change", (e) => {
+  const status = e.target.value;
+  const notes = Storage.getAllNoteList();
+  const newStatusNote = statusNoteList(notes, status);
+  displayNotelist(newStatusNote);
+});
+function sortNoteList(data, sort) {
+  if (sort === "latest") {
+    return data.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+  }
+  if (sort === "earliest") {
+    return data.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }
+}
+selectSort.forEach((btnSort) => {
+  btnSort.addEventListener("click", (event) => {
+    let sortType;
+    const notes = Storage.getAllNoteList();
+    if (event.target.classList.contains("Ascending")) {
+      sortType = "latest";
+    } else if (event.target.classList.contains("Descending")) {
+      sortType = "earliest";
+    }
+    if (sortType) {
+      const newSortNote = sortNoteList(notes, sortType);
+      displayNotelist(newSortNote);
+    }
+  });
 });
 document.addEventListener("DOMContentLoaded", () => {
   const noteList = new NoteList();
