@@ -4,6 +4,7 @@ const inputSearch = document.querySelector(".input-search");
 const filterTodos = document.querySelector(".filter-todos");
 const selectSort = document.querySelectorAll(".select-control");
 let _noteListResult = [];
+let status = "ALL";
 class NoteList {
   getNoteList() {
     return notesList;
@@ -59,10 +60,10 @@ function displayNotelist(notes) {
       }
     )}</p>
     <div>
-    <svg class="icon check" data-id=${item.id}>
+    <svg class="icon check" data-note-id=${item.id}>
     <use xlink:href="assets/images/icons.svg#task-done"></use>
     </svg>
-    <svg class="icon delete" data-id=${item.id}>
+    <svg class="icon delete" data-note-id=${item.id}>
     <use xlink:href="assets/images/icons.svg#trash"></use>
     </svg>
     </div>
@@ -78,12 +79,21 @@ function actionBtns() {
   const deleteBtns = document.querySelectorAll(".delete");
   checkBtns.forEach((btns) => {
     btns.addEventListener("click", (e) => {
-      console.log(e.target.dataset.id);
+      const notes = Storage.getAllNoteList();
+      const noteId = +e.target.dataset.noteId;
+      const note = notes.find((note) => note.id === noteId);
+      note.completed = !note.completed;
+      Storage.saveNoteList(notes);
+      statusNoteList(notes);
     });
   });
   deleteBtns.forEach((btns) => {
     btns.addEventListener("click", (e) => {
-      console.log(e.target.dataset.id);
+      const notes = Storage.getAllNoteList();
+      const noteId = +e.target.dataset.noteId;
+      const filterNotes = notes.filter((note) => note.id !== noteId);
+      Storage.saveNoteList(filterNotes);
+      statusNoteList(filterNotes);
     });
   });
 }
@@ -92,31 +102,33 @@ inputSearch.addEventListener("input", (e) => {
   const inputValue = e.target.value.toLowerCase().trim();
   const notes = Storage.getAllNoteList();
   _noteListResult = filterNoteList(notes, inputValue);
-  displayNotelist(_noteListResult);
+  statusNoteList(_noteListResult);
 });
 
-function statusNoteList(data, status) {
+function statusNoteList(data) {
   switch (status) {
     case "ALL": {
-      return data;
+      displayNotelist(data);
+      break;
     }
     case "COMPLETED": {
       const filterStatus = data.filter((item) => item.completed);
-      return filterStatus;
+      displayNotelist(filterStatus);
+      break;
     }
     case "UNCOMPLETED": {
       const filterStatus = data.filter((item) => !item.completed);
-      return filterStatus;
+      displayNotelist(filterStatus);
+      break;
     }
     default:
       throw new Error("NO MATCHING STATUS");
   }
 }
 filterTodos.addEventListener("change", (e) => {
-  const status = e.target.value;
+  status = e.target.value;
   const notes = Storage.getAllNoteList();
-  const newStatusNote = statusNoteList(notes, status);
-  displayNotelist(newStatusNote);
+  statusNoteList(notes);
 });
 function sortNoteList(data, sort) {
   if (sort === "latest") {
@@ -143,7 +155,7 @@ selectSort.forEach((btnSort) => {
     }
     if (sortType) {
       const newSortNote = sortNoteList(notes, sortType);
-      displayNotelist(newSortNote);
+      statusNoteList(newSortNote);
     }
   });
 });
